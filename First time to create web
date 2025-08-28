@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Page Title</title>
+</head>
+<body>
+
+<h1>Coding is difficult</h1>
+<p>I want to get better at coding.</p>
+
+<h2>How to improve coding skill</h2>
+
+<ul>
+  <li>Practice Consistently</li>
+  <li>Build Real Projects</li>
+  <li>Read and Learn from Others’ Code</li>
+</ul> 
+
+</body>
+</html>
