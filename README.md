@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rational Functions - Roller Coaster Project</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            padding: 0;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(255, 107, 107, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(78, 205, 196, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(255, 195, 113, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 60px 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 80px;
+            padding: 40px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        h1 {
+            color: #fff;
+            font-size: 4em;
+            margin-bottom: 20px;
+            text-shadow: 0 0 20px rgba(255, 107, 107, 0.5);
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        .subtitle {
+            color: #4ecdc4;
+            font-size: 1.3em;
+            font-weight: 300;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .function-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 25px;
+            padding: 50px;
+            margin-bottom: 60px;
+            box-shadow: 
+                0 20px 60px rgba(0, 0, 0, 0.3),
+                0 0 0 1px rgba(255, 255, 255, 0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .function-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #ff6b6b, #4ecdc4, #ffc371);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .function-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 
+                0 30px 80px rgba(0, 0, 0, 0.4),
+                0 0 0 1px rgba(255, 255, 255, 0.2);
+        }
+
+        .function-card:hover::before {
+            opacity: 1;
+        }
+
+        .function-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 2.5em;
+            margin-bottom: 40px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .function-header::before {
+            content: '🎢';
+            font-size: 1.2em;
+            -webkit-text-fill-color: initial;
+        }
+
+        .ride-image {
+            width: 100%;
+            max-width: 500px;
+            margin: 30px auto;
+            display: block;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s;
+        }
+
+        .ride-image:hover {
+            transform: scale(1.05);
+        }
+
+        .desmos-container {
+            width: 500px;
+            max-width: 100%;
+            margin: 40px auto;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        iframe {
+            width: 500px;
+            height: 500px;
+            border: 1px solid #ccc;
+            display: block;
+            margin: 0 auto;
+            max-width: 100%;
+        }
+
+        .equation {
+            background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+            padding: 30px;
+            border-radius: 15px;
+            font-size: 1.4em;
+            text-align: center;
+            margin: 40px 0;
+            font-family: 'Courier New', monospace;
+            color: #1a1a2e;
+            border: 2px solid #667eea40;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .equation::before {
+            content: '∫';
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 3em;
+            opacity: 0.1;
+            color: #667eea;
+        }
+
+        .paragraph-section {
+            margin: 35px 0;
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            border-left: 5px solid #4ecdc4;
+            transition: all 0.3s;
+        }
+
+        .paragraph-section:hover {
+            background: #fff;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .paragraph-title {
+            color: #1a1a2e;
+            font-size: 1.6em;
+            margin-bottom: 20px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .paragraph-content {
+            line-height: 1.9;
+            color: #2d3436;
+            font-size: 1.05em;
+            text-align: justify;
+        }
+
+        .card-number {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 6em;
+            font-weight: 900;
+            color: rgba(102, 126, 234, 0.1);
+            z-index: 0;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5em;
+            }
+            
+            .function-card {
+                padding: 30px 20px;
+            }
+            
+            .function-header {
+                font-size: 1.8em;
+            }
+
+            .card-number {
+                font-size: 4em;
+            }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .function-card {
+            animation: fadeInUp 0.6s ease-out forwards;
+            opacity: 0;
+        }
+
+        .function-card:nth-child(2) { animation-delay: 0.1s; }
+        .function-card:nth-child(3) { animation-delay: 0.2s; }
+        .function-card:nth-child(4) { animation-delay: 0.3s; }
+        .function-card:nth-child(5) { animation-delay: 0.4s; }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎢 MATH THEME PARK</h1>
+            <div class="subtitle">Rational Functions - Roller Coaster Project</div>
+        </header>
+
+        <!-- Function 1: Volcano -->
+        <div class="function-card">
+            <span class="card-number">01</span>
+            <h2 class="function-header">Rational Function - Volcano (1/x and 1/x²)</h2>
+            
+            <img src="https://i.imgur.com/placeholder-volcano.jpg" alt="Volcano Ride" class="ride-image" onerror="this.style.display='none'">
+            
+            <div class="desmos-container">
+                <iframe src="https://www.desmos.com/calculator/mhkb8tgnel?embed"></iframe>
+            </div>
+
+            <div class="equation">
+                y = 1.1/(x+0.2) + 2.1  {-2.7 ≤ x ≤ -0.5} {y ≤ 3.8}<br><br>
+                y = 1.1/(x-0.2)² + 2.1  {0 ≤ x ≤ 2.4} {y ≤ 3.6}
+            </div>
+
+            <div class="paragraph-section">
+                <h3 class="paragraph-title">📐 Transformations</h3>
+                <p class="paragraph-content">
+                    For this part of the project, I used the parent function y = 1/x to model the two sides of the volcano. For the left side, I used the equation y = 1.1/x + 2.1. I stretched the graph vertically by a factor of 1.1 so that the curve looks steeper, similar to the slope of the mountain. Then I shifted the whole graph upward by 2.1 units to match the height in the picture. After that, I restricted the domain to -2.7 ≤ x ≤ -0.5 so that only the part that actually appears in the photo is shown. I also added the condition y ≤ 3.8 to cut off the top where the mountain ends.
+                    <br><br>
+                    For the right side, I used y = 1.1/(x-0.2)² + 2.1. This function has the same vertical stretch and upward shift as the left side, but I shifted it 0.2 units to the left so the two curves line up more naturally with the shape of the volcano. I limited the domain to 0 ≤ x ≤ 2.4 to show only the visible right side of the slope, and I used y ≤ 3.6 to match the height of the mountain on that side.
+                </p>
+            </div>
+
+            <div class="paragraph-section">
+                <h3 class="paragraph-title">📊 Domain and Range</h3>
+                <p class="paragraph-content">
+                    For the right-side function y = 1.1/(x-0.2)² + 2.1, the domain is {x ∈ ℝ | 0 ≤ x ≤ 2.4}, because this is the only part of the graph that fits the right side of the volcano. The range is {y ∈ ℝ | 2.1 < y ≤ 3.6}, which matches the vertical height shown in the photo.
+                    <br><br>
+                    For the left-side function y = 1.1/x + 2.1, the domain is {x ∈ ℝ | -2.7 ≤ x ≤ -0.5}, reflecting the section used on the left slope. The corresponding range is {y ∈ ℝ | 2.1 < y ≤ 3.8}.
+                </p>
+            </div>
+        </div>
+
+        <!-- Function 2: Roller Coaster -->
+        <div class="function-card">
+            <span class="card-number">02</span>
+            <h2 class="function-header">Polynomial Function - Roller Coaster</h2>
+            
+            <img src="https://i.imgur.com/placeholder-coaster.jpg" alt="Roller Coaster" class="ride-image" onerror="this.style.display='none'">
+            
+            <div class="desmos-container">
+                <iframe src="https://www.desmos.com/calculator/xcrwnxlqki?embed"></iframe>
+            </div>
+
+            <div class="equation">
+                y = -0.000014x²(x + 7)(x - 20)(x + 50)  {-15.5 ≤ x ≤ 22.35}
+            </div>
+
+            <div class="paragraph-section">
+                <h3 class="paragraph-title">📐 Transformations</h3>
+                <p class="paragraph-content">
+                    For this part of the project, I used a fifth-degree polynomial to match the unique shape of the roller coaster. The equation I created is y = -0.000014x²(x + 7)(x - 20)(x + 50). I chose this form because the multiple factors allow the graph to bend several times, which fits the steep rise, the small peak near the middle, and the big drop on the right side. The negative coefficient is important because it flips the graph vertically, which helps form the downward motion after the highest point. I adjusted the scale by using a very small leading coefficient -0.00001.4; without this, the graph would grow too quickly and wouldn't match the height of the real ride. By choosing roots at x = 0, x = -7, x = 20, the curve naturally forms the ups and downs that resemble the track in the photo. Overall, I made small changes and checked the graph repeatedly to make sure the curve followed the coaster as closely as possible.
+                </p>
+            </div>
+
+            <div class="paragraph-section">
+                <h3 class="paragraph-title">📊 Domain and Range</h3>
+                <p class="paragraph-content">
+                    To model only the visible track, I restricted the domain to {x ∈ ℝ | -15.5 ≤ x ≤ 22.35}. This keeps only the section of the polynomial that actually appears in the picture. The range for the lowest point and highest point come from the shape of the graph and the photo. The values stay between {y ∈ ℝ | -35 ≤ y ≤ 25} (based on the graph's visible peaks and drops). This range captures everything from the bottom of the big drop to the top of the tallest hill.
+                </p>
+            </div>
+        </div>
+
+        <!-- Function 3: Swinging Ship -->
+        <div class="function-card">
+            <span class="card-number">03</span>
+            <h2 class="function-header">Rational Function - Swinging Ship (1/x)</h2>
+            
+            <img src="https://i.imgur.com/placeholder-ship.jpg" alt="Swinging Ship" class="ride-image" onerror="this.style.display='none'">
+            
+            <div class="desmos-container">
+                <iframe src="https://www.desmos.com/calculator/82iqdblbmg?embed"></iframe>
+            </div>
+
+            <div class="equation">
+                y = 645/(x + 5) - 70  {-30.5 ≤ x ≤ -13}
+            </div>
+
+            <div class="paragraph-section">
+                <h3 class="paragraph-title">📐 Transformations</h3>
+                <p class="paragraph-content">
+                    For this ride, I used a rational function to model the curved motion of the swinging ship. The equation I used is y = 645/(x + 5) - 70. I started with the parent function y = 1/x, since its shape naturally creates a smooth curve similar to the arc of the ship. To match the direction of the curve, I added a negative sign so the graph flips vertically. I also shifted the graph 5 units to the left by using (x + 5), which helped place the curve in the correct position over the ride. The coefficient 645 controls how wide and steep the curve is, and I adjusted it until the graph lined up with the angle of the ship. Finally, I shifted the entire graph downward by 70 to match the height shown in the photo.
+                </p>
+            </div>
+
+            <div class="paragraph-section">
+                <h3 class="paragraph-title">📊 Domain and Range</h3>
+                <p class="paragraph-content">
+                    I restricted the domain to {x ∈ ℝ | -30.5 ≤ x ≤ -13}, so that only the portion of the curve that actually appears in the ride is shown. The visible height of the ship was between {y ∈ ℝ | -46 ≤ y ≤ 44}, so I used that as the range. These restrictions make the graph match the real motion of the ride instead of showing the entire rational curve.
+                </p>
+            </div>
+        </div>
+
+        <!-- Function 4: Loop -->
+        <div class="function-card">
+            <span class="card-number">04</span>
+            <h2 class="function-header">Secant Function - Loop (sec x)</h2>
+            
+            <img src="https://i.imgur.com/placeholder-loop.jpg" alt="Loop Ride" class="ride-image" onerror="this.style.display='none'">
+            
+            <div class="desmos-container">
+                <iframe src="https://www.desmos.com/calculator/lgx1yf4zev?embed"></iframe>
+            </div>
+
+            <div class="equation">
+                y = -80|sec(π/25 x)| + 95  {-19.7 ≤ x ≤ 19.7}
+            </div>
+
+            <div class="paragraph-section">
+                <h3 class="paragraph-title">📐 Transformations</h3>
+                <p class="paragraph-content">
+                    For this loop, I decided to use a secant function, because its shape looks like an upside-down arch and it also has vertical asymptotes like a trigonometric graph. I started from the parent function y = sec x. Then I changed it to sec(π/25 x). This multiplier π/25 x, which stretches the graph horizontally so that one arch is wider and flatter. Next, I multiplied the secant by -80. This vertical stretch by a factor of 80 and also reflects the graph across the x-axis, giving me a tall, upside-down arch that follows the track. Finally, I added 95 to shift the whole graph upward so that the maximum point lines up with the highest part of the loop. After adjusting these numbers a few times, the curve matched the shape of the red track in the picture.
+                </p>
+            </div>
+
+            <div class="paragraph-section">
+                <h3 class="paragraph-title">📊 Domain and Range</h3>
+                <p class="paragraph-content">
+                    Because I only need the visible part of the loop, I restricted the domain to {x ∈ ℝ | -19.7 ≤ x ≤ 19.7}. This cuts off the rest of the secant graph and keeps just one arch over the ride. From the graph, the highest point is about y = 15 and the lowest visible value is around y = -19. So the range for this section is approximately {y ∈ ℝ | -19 ≤ y ≤ 15}, which matches the vertical height of the loop in the image.
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
