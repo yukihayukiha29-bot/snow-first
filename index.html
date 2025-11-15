@@ -666,3 +666,77 @@
                 <p>This precisely corresponds to the vertical height of the loop.</p>
             </div>
         </div
+<!-- Ride 5: Ferris Wheel -->
+        <div class="ride-section">
+            <div class="ride-number">5</div>
+            <div class="ride-header">
+                <h2>5. Ferris Wheel</h2>
+                <h3>Circle / Parametric Representation</h3>
+            </div>
+            
+            <div class="content-grid">
+                <div class="desmos-container">
+                    <iframe src="https://www.desmos.com/calculator" frameborder="0"></iframe>
+                </div>
+                
+                <div>
+                    <div class="equation-box">
+                        <h4>① Parametric Equation:</h4>
+                        <div class="equation">(4 cos t, 4 sin t)  0 ≤ t ≤ 2π</div>
+                    </div>
+                    
+                    <div class="equation-box">
+                        <h4>② Standard Circle Equation:</h4>
+                        <div class="equation">x² + y² = 16</div>
+                    </div>
+                    
+                    <div class="transformations-list">
+                        <h4>Transformations:</h4>
+                        <ul>
+                            <li>Radius fixed at 4 units</li>
+                            <li>Horizontal movement determined by cos t</li>
+                            <li>Vertical movement determined by sin t</li>
+                            <li>One full rotation achieved with 0 ≤ t ≤ 2π</li>
+                            <li>Not a function (fails Vertical Line Test)</li>
+                            <li>Represents circular motion directly</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-section">
+                <h4>Explanation</h4>
+                <p>To create the circular shape of the Ferris wheel, I first tried transforming regular functions such as quadratics and absolute value graphs, but none of them produced a clean and perfectly round circle. While experimenting, I remembered from class that cosine controls horizontal movement and sine controls vertical movement, and that they always satisfy:</p>
+                
+                <p style="text-align: center; font-family: 'Courier New', monospace; font-size: 1.1em; margin: 15px 0;">cos² t + sin² t = 1.</p>
+                
+                <p>This identity is exactly the equation of a circle, which made me realize that using circular motion itself would be more effective than forcing another function into a circular shape. Plotting (cos t, sin t) gave me a perfect circle, and adjusting the radius to match the wheel in the photo led me to use (4 cos t, 4 sin t). Setting 0 ≤ t ≤ 2π allowed the graph to draw exactly one full rotation. This method models the movement of a Ferris wheel naturally and accurately.</p>
+            </div>
+            
+            <div class="text-section">
+                <h4>Standard Circle Equation</h4>
+                <p>For the second approach, I used the standard circle equation</p>
+                
+                <p style="text-align: center; font-family: 'Courier New', monospace; font-size: 1.1em; margin: 15px 0;">x² + y² = 16,</p>
+                
+                <p>which I learned from my teacher. This form clearly represents a circle with center (0, 0) and radius 4, so it was very helpful for understanding the geometric structure of the Ferris wheel.</p>
+                
+                <p>While the parametric equation describes the <em>motion</em> of the wheel, the standard equation focuses on the <em>shape</em> itself. By using the method my teacher recommended, I was able to see that the same circle can be represented from different mathematical perspectives—one based on movement and one based on pure point-by-point view.</p>
+                
+                <p>Including both approaches allowed me to describe the Ferris wheel more accurately and from a broader point of view.</p>
+            </div>
+            
+            <div class="text-section">
+                <h4>Domain and Range</h4>
+                <div class="domain-range-box">
+                    <h4>Parametric Equation:</h4>
+                    <p><strong>Domain:</strong> {t ∈ ℝ | 0 ≤ t ≤ 2π}</p>
+                    <p><strong>Range:</strong> {(x, y) | x = 4cos t, y = 4sin t, 0 ≤ t ≤ 2π}</p>
+                </div>
+                <div class="domain-range-box">
+                    <h4>Standard Circle Equation:</h4>
+                    <p><strong>Domain:</strong> {x ∈ ℝ | -4 ≤ x ≤ 4}</p>
+                    <p><strong>Range:</strong> {y ∈ ℝ | -4 ≤ y ≤ 4}</p>
+                </div>
+            </div>
+        </div
